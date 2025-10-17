@@ -8,7 +8,8 @@ if (!isset($_SESSION["login"])) {
 }
 
 $username = isset($_POST["username"]) ? $_POST["username"] : '';
-if (($username == $username_valid) && ($password == $password_valid)) {
+$password = isset($_POST["password"]) ? $_POST["password"] : '';
+if (($username == $username_valid) && ($password == $password_valid)){
 
     $_SESSION["login"][] = [
         "username"=> $username,
@@ -23,8 +24,24 @@ if (($username == $username_valid) && ($password == $password_valid)) {
     echo '<a href="logout.php">Logout</a>';
 
     echo '<pre>';
-    var_dump ($_SESSION["login"]);    
+?>
+
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Time</th>
+        </tr>
+        <?php foreach ($_SESSION["login"] as $login): ?>
+            <tr>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td><?php echo $login["time"]; ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php   
 } else {
     echo "Login Gagal";
 }
-    echo "Login Gagal";
+
